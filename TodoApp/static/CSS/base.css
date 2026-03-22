@@ -1,0 +1,410 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #f0ece3;
+  color: #1a1814;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-top: 65px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff6b35, #ffd23f, #06d6a0, #118ab2);
+  background-size: 300%;
+  animation: topbar 6s linear infinite;
+  z-index: 9999;
+}
+
+@keyframes topbar { 0%{ background-position:0% } 100%{ background-position:300% } }
+@keyframes fadeUp { from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:translateY(0) } }
+@keyframes slideIn { from{ opacity:0; transform:translateX(-8px) } to{ opacity:1; transform:translateX(0) } }
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+.main-color {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e8e3d8 !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  top: 4px !important;
+  left: 0; right: 0;
+  z-index: 1000;
+}
+
+.navbar { padding: 0 2rem; height: 61px; }
+
+.navbar-brand {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 1.25rem !important;
+  letter-spacing: 0.08em !important;
+  color: #1a1814 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.navbar-brand::before {
+  content: '';
+  width: 26px; height: 26px;
+  background: #ff6b35 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/14px no-repeat;
+  border-radius: 6px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: #1a1814 !important;
+  padding: 0.4rem 0.75rem !important;
+  border-radius: 6px !important;
+  transition: all 0.15s !important;
+}
+
+.nav-link:hover { color: #ff6b35 !important; background: #fff5f0 !important; }
+
+.btn-outline-light {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  color: #ff6b35 !important;
+  border: 1.5px solid #ff6b35 !important;
+  border-radius: 6px !important;
+  padding: 0.3rem 0.9rem !important;
+  background: transparent !important;
+  transition: all 0.2s !important;
+  white-space: nowrap !important;
+}
+
+.btn-outline-light:hover { background: #ff6b35 !important; color: #fff !important; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.container { max-width: 1100px; padding: 1.5rem 2rem 5rem; }
+
+/* ─── GREETING ───────────────────────────────────────────── */
+.greeting-card {
+  background: #1a1814;
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+}
+
+.greeting-card::before {
+  content: ''; position: absolute;
+  top: -50px; right: -50px; width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,107,53,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.greeting-date { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:#555046; margin-bottom:0.3rem; }
+.greeting-name { font-family:'Bebas Neue',sans-serif; font-size:2rem; line-height:0.95; color:#fff; letter-spacing:0.02em; }
+.greeting-name span { color: #ff6b35; }
+.greeting-sub { font-size:0.78rem; color:#555046; margin-top:0.4rem; }
+.greeting-sub b { color: #06d6a0; }
+
+/* ─── PAGE LAYOUT ────────────────────────────────────────── */
+.page-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ─── SECTION TITLE ──────────────────────────────────────── */
+.section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1a1814;
+  margin-bottom: 0.75rem;
+  display: block;
+  animation: fadeUp 0.3s ease both;
+}
+
+/* ─── TODO ITEMS ─────────────────────────────────────────── */
+.todo-item {
+  display: grid;
+  grid-template-columns: 44px 1fr 90px 70px;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid #e8e3d8;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.25s ease both;
+}
+
+.todo-item::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 3px;
+  background: #e8e3d8;
+  transition: background 0.2s;
+}
+
+.todo-item:hover { border-color: #ff6b35; box-shadow: 0 4px 16px rgba(255,107,53,0.1); transform: translateY(-1px); }
+.todo-item:hover::before { background: #ff6b35; }
+
+.todo-item.done { background: #f7f5f0; border-color: #eae6de; opacity: 0.7; }
+.todo-item.done:hover { border-color: #06d6a0; box-shadow: none; transform: none; opacity: 1; }
+.todo-item.done:hover::before { background: #06d6a0; }
+
+.todo-num { font-family:'DM Mono',monospace; font-size:0.7rem; color:#c8c3b8; text-align:center; padding:1rem 0; }
+.todo-title { font-size:0.88rem; font-weight:600; color:#1a1814; padding:1rem 0.75rem; letter-spacing:-0.01em; }
+.todo-title.done { text-decoration:line-through; color:#c8c3b8; font-weight:400; }
+.todo-badge { padding: 0 0.5rem; }
+.todo-action { padding: 0 0.75rem 0 0; text-align: right; }
+
+.todo-item:nth-child(1)  { animation-delay:0.05s }
+.todo-item:nth-child(2)  { animation-delay:0.10s }
+.todo-item:nth-child(3)  { animation-delay:0.15s }
+.todo-item:nth-child(4)  { animation-delay:0.20s }
+.todo-item:nth-child(5)  { animation-delay:0.25s }
+.todo-item:nth-child(6)  { animation-delay:0.30s }
+.todo-item:nth-child(7)  { animation-delay:0.35s }
+.todo-item:nth-child(8)  { animation-delay:0.40s }
+.todo-item:nth-child(9)  { animation-delay:0.45s }
+.todo-item:nth-child(10) { animation-delay:0.50s }
+
+/* ─── BADGES ─────────────────────────────────────────────── */
+.badge-pending {
+  display: inline-block; padding: 0.18rem 0.55rem; border-radius: 99px;
+  font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 500;
+  letter-spacing: 0.05em; background: #fff2ed; color: #ff6b35;
+  border: 1px solid #ffd4c2; white-space: nowrap;
+}
+
+.badge-done {
+  display: inline-block; padding: 0.18rem 0.55rem; border-radius: 99px;
+  font-family: 'DM Mono', monospace; font-size: 0.55rem; font-weight: 500;
+  letter-spacing: 0.05em; background: #edfdf6; color: #06a870;
+  border: 1px solid #b8f0e0; white-space: nowrap;
+}
+
+/* ─── EDIT BUTTON ────────────────────────────────────────── */
+.btn-info {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.65rem !important; font-weight: 500 !important;
+  color: #b0aa9f !important; background: #f5f2eb !important;
+  border: 1px solid #e8e3d8 !important; border-radius: 6px !important;
+  padding: 0.28rem 0.6rem !important; cursor: pointer !important;
+  transition: all 0.15s !important; opacity: 0 !important; box-shadow: none !important;
+}
+
+.todo-item:hover .btn-info { opacity: 1 !important; }
+.btn-info:hover { color: #1a1814 !important; border-color: #1a1814 !important; background: #eee9de !important; }
+
+/* ─── ADD BUTTON ─────────────────────────────────────────── */
+.btn-primary {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.8rem !important; font-weight: 600 !important;
+  color: #fff !important; background: #ff6b35 !important;
+  border: none !important; border-radius: 8px !important;
+  padding: 0.65rem 1.4rem !important;
+  display: inline-flex !important; align-items: center !important; gap: 6px !important;
+  margin-top: 0.75rem !important; transition: all 0.15s !important;
+  text-decoration: none !important; cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.3) !important;
+}
+
+.btn-primary::before { content: '+'; font-size: 1.1rem; line-height: 1; font-weight: 300; }
+.btn-primary:hover { background: #e55a25 !important; color: #fff !important; transform: translateY(-1px) !important; text-decoration: none !important; }
+
+/* ─── SIDEBAR ────────────────────────────────────────────── */
+.sidebar {
+  background: #ffffff;
+  border: 1.5px solid #e8e3d8;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+
+.sidebar-label { font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#6b6860; margin-bottom:0.75rem; display:block; }
+
+.stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.stat-box { border-radius:10px; padding:0.85rem 0.75rem; text-align:center; }
+.stat-box.total   { background:#1a1814; grid-column:1/-1; }
+.stat-box.pending { background:#fff5f0; border:1.5px solid #ffd4c2; }
+.stat-box.done    { background:#edfdf6; border:1.5px solid #b8f0e0; }
+
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:2rem; line-height:1; display:block; }
+.stat-num.w      { color:#fff; }
+.stat-num.orange { color:#ff6b35; }
+.stat-num.green  { color:#06d6a0; }
+
+.stat-desc { font-size:0.52rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-top:2px; display:block; }
+.stat-desc.w      { color:#555046; }
+.stat-desc.orange { color:#e05000; }
+.stat-desc.green  { color:#04916a; }
+
+.progress-track { height:8px; background:#f0ece3; border-radius:99px; overflow:hidden; }
+.progress-fill  { height:100%; background:linear-gradient(90deg,#ff6b35,#ffd23f); border-radius:99px; width:var(--pct,0%); transition:width 0.8s ease; }
+.progress-info  { display:flex; justify-content:space-between; margin-top:0.4rem; }
+.progress-text  { font-size:0.65rem; color:#6b6860; font-weight:500; }
+.progress-pct   { font-size:0.65rem; font-weight:700; color:#ff6b35; }
+
+/* ─── DODO ───────────────────────────────────────────────── */
+.dodo-wrap { background:#f7f5f0; border:1.5px solid #e8e3d8; border-radius:12px; padding:1rem 0.75rem 0.75rem; text-align:center; transition:background 0.5s ease; }
+.dodo-canvas-wrap { width:90px; height:90px; margin:0 auto 0.6rem; transition:transform 0.4s cubic-bezier(.34,1.56,.64,1); }
+.dodo-canvas-wrap canvas { width:90px; height:90px; }
+.dodo-bubble { background:#fff; border:1.5px solid #e8e3d8; border-radius:10px; border-bottom-left-radius:3px; padding:0.5rem 0.75rem; font-size:0.72rem; font-weight:500; color:#1a1814; line-height:1.4; text-align:left; min-height:38px; transition:opacity 0.3s; }
+.dodo-name { font-family:'DM Mono',monospace; font-size:0.5rem; letter-spacing:0.12em; text-transform:uppercase; color:#6b6860; margin-top:0.5rem; display:block; font-weight:600; }
+
+/* ─── USER BLOCK ─────────────────────────────────────────── */
+.user-block { display:flex; align-items:center; gap:10px; padding:0.85rem; background:#f0ece3; border-radius:10px; }
+.user-avatar { width:36px; height:36px; background:linear-gradient(135deg,#ff6b35,#ffd23f); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:#fff; flex-shrink:0; }
+.user-name { font-size:0.82rem; font-weight:600; color:#1a1814; display:block; }
+.user-role { font-family:'DM Mono',monospace; font-size:0.55rem; color:#6b6860; text-transform:uppercase; letter-spacing:0.06em; }
+
+/* ─── FORM PAGES ─────────────────────────────────────────── */
+.container > .card {
+  display: block !important;
+  background: #ffffff !important;
+  border: 1.5px solid #e8e3d8 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 24px rgba(26,24,20,0.06) !important;
+  max-width: 580px;
+  margin: 0 auto !important;
+  animation: fadeUp 0.3s ease both;
+}
+
+.container > .card .card-header {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 2rem !important; letter-spacing: 0.02em !important;
+  color: #1a1814 !important; background: #f7f5f0 !important;
+  border-bottom: 1.5px solid #e8e3d8 !important;
+  border-radius: 13px 13px 0 0 !important;
+  padding: 1.5rem 2rem !important; font-weight: 400 !important;
+}
+
+.container > .card .card-header::before { display: none !important; }
+.container > .card .card-body { padding: 2rem !important; display: block !important; }
+
+.form-group { margin-bottom: 1.25rem; }
+
+.form-group label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #1a1814; margin-bottom: 0.5rem;
+}
+
+.form-control {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 0.88rem !important; color: #1a1814 !important;
+  background: #faf8f5 !important; border: 1.5px solid #e8e3d8 !important;
+  border-radius: 8px !important; padding: 0.7rem 1rem !important;
+  width: 100%; transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+.form-control:focus { border-color: #ff6b35 !important; box-shadow: 0 0 0 3px rgba(255,107,53,0.1) !important; outline: none !important; background: #fff !important; }
+select.form-control { height: auto !important; padding-top: 0.7rem !important; padding-bottom: 0.7rem !important; }
+
+.card .btn-primary { margin-top: 0 !important; margin-right: 0.75rem !important; }
+.card .btn-primary::before { display: none !important; }
+
+.btn-success {
+  font-family: 'DM Sans', sans-serif !important; font-size: 0.78rem !important; font-weight: 500 !important;
+  color: #6b6860 !important; border: 1.5px solid #e8e3d8 !important; border-radius: 6px !important;
+  background: transparent !important; padding: 0.55rem 1rem !important;
+  transition: all 0.15s !important; text-decoration: none !important; display: inline-block !important; cursor: pointer !important;
+}
+
+.btn-success:hover { border-color: #1a1814 !important; color: #1a1814 !important; text-decoration: none !important; }
+
+.btn-danger {
+  font-family: 'DM Sans', sans-serif !important; font-size: 0.78rem !important; font-weight: 600 !important;
+  color: #fff !important; background: #ef233c !important; border: none !important;
+  border-radius: 6px !important; padding: 0.55rem 1rem !important; transition: all 0.15s !important; cursor: pointer !important;
+}
+
+.btn-danger:hover { background: #c81d32 !important; }
+
+.form-check { display: flex !important; align-items: center !important; gap: 0.5rem !important; }
+.form-check-input { margin-top: 0 !important; }
+.form-check-label { margin-bottom: 0 !important; color: #1a1814; font-size: 0.88rem; }
+
+/* ─── FINAL POLISH ───────────────────────────────────────── */
+.section-title {
+  text-align: center !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 1rem !important;
+  padding-bottom: 0.5rem !important;
+  border-bottom: 2px solid #e8e3d8 !important;
+}
+
+/* Sidebar label align with section title */
+.sidebar > div:first-child .sidebar-label {
+  font-size: 0.85rem !important;
+  padding-bottom: 0.5rem !important;
+  border-bottom: 2px solid #e8e3d8 !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Make tasks the hero — bigger, more breathing room */
+.todo-item {
+  padding: 0.25rem 0 !important;
+  margin-bottom: 8px !important;
+  border-radius: 12px !important;
+}
+
+.todo-title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  padding: 1.1rem 0.75rem !important;
+}
+
+.todo-num {
+  font-size: 0.85rem !important;
+  padding: 1.1rem 0 !important;
+  color: #b0aa9f !important;
+}
+
+/* pending items stand out more */
+.todo-item:not(.done) {
+  border-color: #d8d3c8 !important;
+  box-shadow: 0 2px 8px rgba(26,24,20,0.05) !important;
+}
+
+.todo-item:not(.done) .todo-title {
+  color: #1a1814 !important;
+  font-weight: 700 !important;
+}
+
+/* ─── ALIGN OVERVIEW WITH YOUR TODO'S ───────────────────── */
+.sidebar {
+  padding-top: 0 !important;
+}
+
+.sidebar > div:first-child {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.sidebar > div:first-child .sidebar-label {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ensure section-title and sidebar first label have same top margin */
+.todos-section .section-title,
+.sidebar > div:first-child .sidebar-label {
+  margin-top: 0 !important;
+  display: block !important;
+}

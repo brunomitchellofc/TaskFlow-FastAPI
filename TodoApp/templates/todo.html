@@ -1,0 +1,86 @@
+{% include 'layout.html' %}
+
+<div class="container">
+
+  <div class="greeting-card">
+    <div class="greeting-date">{{ now }}</div>
+    <div class="greeting-name">{{ greeting }},<br><span>{{ user.username }}!</span></div>
+    <div class="greeting-sub">You have <b>{{ todos|selectattr('complete','equalto',false)|list|length }} tasks</b> left today</div>
+  </div>
+
+  <div class="page-layout">
+
+    <div class="todos-section">
+      <span class="section-title">Your Todo's</span>
+
+      {% for todo in todos %}
+        {% if todo.complete == False %}
+        <div class="todo-item" onclick="window.location.href='/todos/edit-todo-page/{{todo.id}}'">
+          <div class="todo-num">{{ loop.index }}</div>
+          <div class="todo-title">{{ todo.title }}</div>
+          <div class="todo-badge"><span class="badge-pending">Pending</span></div>
+          <div class="todo-action">
+            <button onclick="event.stopPropagation(); window.location.href='/todos/edit-todo-page/{{todo.id}}'" type="button" class="btn btn-info">Edit</button>
+          </div>
+        </div>
+        {% else %}
+        <div class="todo-item done" onclick="window.location.href='/todos/edit-todo-page/{{todo.id}}'">
+          <div class="todo-num">{{ loop.index }}</div>
+          <div class="todo-title done">{{ todo.title }}</div>
+          <div class="todo-badge"><span class="badge-done">✓ Done</span></div>
+          <div class="todo-action">
+            <button onclick="event.stopPropagation(); window.location.href='/todos/edit-todo-page/{{todo.id}}'" type="button" class="btn btn-info">Edit</button>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+
+      <a href="add-todo-page" class="btn btn-primary">Add a new todo!</a>
+    </div>
+
+    <div class="sidebar">
+
+      <div>
+        <span class="sidebar-label">Overview</span>
+        <div class="stat-grid">
+          <div class="stat-box total"><span class="stat-num w">{{ todos|length }}</span><span class="stat-desc w">Total</span></div>
+          <div class="stat-box pending"><span class="stat-num orange">{{ todos|selectattr('complete','equalto',false)|list|length }}</span><span class="stat-desc orange">Pending</span></div>
+          <div class="stat-box done"><span class="stat-num green">{{ todos|selectattr('complete','equalto',true)|list|length }}</span><span class="stat-desc green">Done</span></div>
+        </div>
+      </div>
+
+      <div>
+        <span class="sidebar-label">Progress</span>
+        {% set pct = (todos|selectattr('complete','equalto',true)|list|length / todos|length * 100)|int if todos else 0 %}
+        <div class="progress-track"><div class="progress-fill" style="--pct: {{ pct }}%"></div></div>
+        <div class="progress-info">
+          <span class="progress-text">Keep going!</span>
+          <span class="progress-pct">{{ pct }}%</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="sidebar-label">Dodo's Mood</span>
+        <div class="dodo-wrap" id="dodo-wrap">
+          <div class="dodo-canvas-wrap" id="dodo-anim">
+            <canvas id="dodo-face" width="90" height="90"></canvas>
+          </div>
+          <div class="dodo-bubble" id="dodo-bubble">Loading...</div>
+          <span class="dodo-name">DODO — Your Todo Buddy</span>
+        </div>
+      </div>
+
+      <div style="margin-top:auto;">
+        <span class="sidebar-label">Logged in as</span>
+        <div class="user-block">
+          <div class="user-avatar">{{ user.username[0]|upper }}</div>
+          <div>
+            <span class="user-name">{{ user.username }}</span>
+            <span class="user-role">{{ user.user_role }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
