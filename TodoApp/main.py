@@ -8,23 +8,14 @@ from fastapi.responses import RedirectResponse
 
 app = FastAPI()
 
-# Cria as tabelas no banco de dados
-Base.metadata.create_all(bind=engine)
+# Caminho direto para a pasta static que está dentro de TodoApp
+current_dir = os.path.dirname(os.path.abspath(__file__))
+static_path = os.path.join(current_dir, "static")
 
-# --- LÓGICA DE CAMINHO PARA O RENDER ---
-# Pega o diretório onde este arquivo (main.py) está
-script_dir = os.path.dirname(os.path.realpath(__file__))
+# Debug para o log do Render
+print(f"DEBUG: O servidor está procurando o CSS em: {static_path}")
 
-# Tenta achar a pasta static dentro da pasta do app (TodoApp/static)
-static_path = os.path.join(script_dir, "static")
-
-# Se não existir ali, tenta na raiz do projeto (importante para o Render)
-if not os.path.exists(static_path):
-    static_path = os.path.join(os.getcwd(), "static")
-
-# Monta os arquivos estáticos com o caminho absoluto
 app.mount("/static", StaticFiles(directory=static_path), name="static")
-# ---------------------------------------
 
 @app.get("/")
 def test(request: Request):
