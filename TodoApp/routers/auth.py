@@ -18,7 +18,8 @@ router = APIRouter(
     tags=['auth'],
 )
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# No Render, certifique-se de adicionar SECRET_KEY nas Environment Variables
+SECRET_KEY = os.environ.get('SECRET_KEY', 'chave_padrao_para_local') 
 ALGORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -47,17 +48,21 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-templates = Jinja2Templates(directory="templates")
+# Caminho inteligente para os templates
+base_dir = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(base_dir, "..", "templates"))
 
 ### Pages ###
 
 @router.get("/login-page")
 def render_login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    # CORREÇÃO: Usando argumentos nomeados para evitar erro no Render
+    return templates.TemplateResponse(request=request, name="login.html")
 
 @router.get("/register-page")
 def render_register_page(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
+    # CORREÇÃO: Usando argumentos nomeados para evitar erro no Render
+    return templates.TemplateResponse(request=request, name="register.html")
 
 
 ### Endpoints ###
@@ -70,13 +75,10 @@ def authenticate_user(username: str, password: str, db):
     return user
 
 def create_access_token(username: str, user_id: int, role: str, expires_delta: timedelta):
-
     encode = {'sub': username, 'id': user_id, 'role': role}
     expires = datetime.now(timezone.utc) + expires_delta
     encode.update({'exp': expires})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
-
-
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     try:

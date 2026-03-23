@@ -1,3 +1,4 @@
+import os
 from typing import Annotated
 
 from pydantic import BaseModel, Field
@@ -10,7 +11,8 @@ from .auth import get_current_user
 from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory="templates")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(base_dir, "..", "templates"))
 
 router = APIRouter(
     prefix = '/todos',
