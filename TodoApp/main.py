@@ -13,9 +13,14 @@ app = FastAPI()
 # Criar as tabelas no banco de dados (SQLite/Postgres)
 Base.metadata.create_all(bind=engine)
 
-# Configuração da pasta Static (CSS/JS)
-current_dir = os.path.dirname(os.path.abspath(__file__))
-static_path = os.path.join(current_dir, "static")
+# Force finding the static folder
+base_dir = os.path.dirname(os.path.abspath(__file__))
+static_path = os.path.join(base_dir, "static")
+
+# Se não achar pelo caminho absoluto, tenta pelo relativo
+if not os.path.exists(static_path):
+    static_path = "TodoApp/static"
+
 app.mount("/static", StaticFiles(directory=static_path), name="static")
 
 @app.get("/")
