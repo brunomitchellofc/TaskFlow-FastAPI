@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta, datetime, timezone
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -17,7 +18,7 @@ router = APIRouter(
     tags=['auth'],
 )
 
-SECRET_KEY = '93776a2c11f172d4d333cab49a5f7c7eb2b6afec260a70e45f9cc0e232a2633d'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 ALGORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
