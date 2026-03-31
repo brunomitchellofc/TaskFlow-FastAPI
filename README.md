@@ -54,11 +54,11 @@ SECRET_KEY=your_secret_key
 ## 🎬 Preview
 Login
 
-https://github.com/user-attachments/assets/6e2b15d4-075a-4ce4-b4ad-97e3b584d523
+https://github.com/user-attachments/assets/0c995a86-5eae-4e6f-a5b2-900424dc140b
 
-Add Todo
+Add Todo and Delete
 
-https://github.com/user-attachments/assets/6cdf59d5-d321-4bf3-9a8f-7bf14ee77bbf
+https://github.com/user-attachments/assets/4628a04b-f8b6-4902-944e-f6abd980d2fa
 
 [LinkedIn](https://www.linkedin.com/in/bruno-mitchell-246b4a2a6/) · [GitHub](https://github.com/brunomitchellofc)
 
