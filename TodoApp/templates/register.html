@@ -1,0 +1,63 @@
+{% include 'layout.html' %}
+
+<div class="tf-container">
+  <div class="tf-card-outer tf-card-wide">
+    <div class="tf-accent-line"></div>
+    <div class="tf-card-body">
+      <div class="tf-corner-tag">v1.0.0 · secure</div>
+      <div class="tf-dots">
+        <div class="tf-dot" style="background:#ff6b35;"></div>
+        <div class="tf-dot" style="background:#ffd23f;"></div>
+        <div class="tf-dot" style="background:#06d6a0;"></div>
+      </div>
+      <div class="tf-tag">TaskFlow · Auth</div>
+      <div class="tf-title">CREATE<br><span>ACCOUNT.</span></div>
+      <form id="registerForm">
+        <div class="tf-row">
+          <div class="tf-field-group">
+            <div class="tf-field-label">Email</div>
+            <input type="text" class="tf-input" name="email" required placeholder="your@email.com" />
+          </div>
+          <div class="tf-field-group">
+            <div class="tf-field-label">Username</div>
+            <input type="text" class="tf-input" name="username" required placeholder="username" />
+          </div>
+        </div>
+        <div class="tf-row">
+          <div class="tf-field-group">
+            <div class="tf-field-label">First Name</div>
+            <input type="text" class="tf-input" name="firstname" required placeholder="First name" />
+          </div>
+          <div class="tf-field-group">
+            <div class="tf-field-label">Last Name</div>
+            <input type="text" class="tf-input" name="lastname" required placeholder="Last name" />
+          </div>
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Phone Number</div>
+          <input type="text" class="tf-input" name="phone_number" autocomplete="phone-number" required placeholder="+351 912 345 678" />
+        </div>
+        <div class="tf-row">
+          <div class="tf-field-group">
+            <div class="tf-field-label">Password</div>
+            <input type="password" class="tf-input" name="password" autocomplete="new-password" required placeholder="Min. 8 characters" />
+          </div>
+          <div class="tf-field-group">
+            <div class="tf-field-label">Confirm Password</div>
+            <input type="password" class="tf-input" name="password2" autocomplete="new-password" required placeholder="Repeat password" />
+          </div>
+        </div>
+        <button type="submit" class="tf-btn">Create Account <span class="tf-arrow">→</span></button>
+      </form>
+      <div class="tf-divider">
+        <div class="tf-divider-line"></div>
+        <div class="tf-divider-text">have an account?</div>
+        <div class="tf-divider-line"></div>
+      </div>
+      <div class="tf-footer-link">
+        <a href="/auth/login-page">Sign in here →</a>
+      </div>
+    </div>
+  </div>
+</div>
+

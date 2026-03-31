@@ -1,0 +1,46 @@
+{% include "layout.html" %}
+
+<div class="tf-container">
+  <div class="tf-card-outer">
+    <div class="tf-accent-line"></div>
+    <div class="tf-card-body">
+      <div class="tf-corner-tag">editing task</div>
+      <div class="tf-dots">
+        <div class="tf-dot" style="background:#ff6b35;"></div>
+        <div class="tf-dot" style="background:#ffd23f;"></div>
+        <div class="tf-dot" style="background:#06d6a0;"></div>
+      </div>
+      <div class="tf-tag">TaskFlow · Tasks</div>
+      <div class="tf-title">EDIT<br><span>TODO.</span></div>
+      <form id="editTodoForm">
+        <div class="tf-field-group">
+          <div class="tf-field-label">Title</div>
+          <input type="text" class="tf-input" name="title" value="{{todo.title}}" required placeholder="Task title" />
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Description</div>
+          <textarea class="tf-input tf-textarea" name="description" required placeholder="Describe your task...">{{todo.description}}</textarea>
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Priority</div>
+          <select class="tf-input tf-select" name="priority">
+            <option {% if todo.priority == 1 %}selected{% endif %}>1</option>
+            <option {% if todo.priority == 2 %}selected{% endif %}>2</option>
+            <option {% if todo.priority == 3 %}selected{% endif %}>3</option>
+            <option {% if todo.priority == 4 %}selected{% endif %}>4</option>
+            <option {% if todo.priority == 5 %}selected{% endif %}>5</option>
+          </select>
+        </div>
+        <div class="tf-check-group">
+          <input type="checkbox" class="tf-checkbox" name="complete" id="complete" {% if todo.complete %}checked{% endif %} />
+          <label for="complete" class="tf-check-label">Mark as complete</label>
+        </div>
+        <div class="tf-actions">
+          <button type="submit" class="tf-btn">Save Changes <span class="tf-arrow">→</span></button>
+          <button id="deleteButton" type="button" class="tf-btn-delete">Delete</button>
+          <a href="/todos/todo-page" class="tf-btn-back">← Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

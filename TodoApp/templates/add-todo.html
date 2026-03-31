@@ -1,0 +1,41 @@
+{% include "layout.html" %}
+
+<div class="tf-container">
+  <div class="tf-card-outer">
+    <div class="tf-accent-line"></div>
+    <div class="tf-card-body">
+      <div class="tf-corner-tag">new task</div>
+      <div class="tf-dots">
+        <div class="tf-dot" style="background:#ff6b35;"></div>
+        <div class="tf-dot" style="background:#ffd23f;"></div>
+        <div class="tf-dot" style="background:#06d6a0;"></div>
+      </div>
+      <div class="tf-tag">TaskFlow · Tasks</div>
+      <div class="tf-title">ADD<br><span>TODO.</span></div>
+      <form id="todoForm">
+        <div class="tf-field-group">
+          <div class="tf-field-label">Title</div>
+          <input type="text" class="tf-input" name="title" required placeholder="Task title" />
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Description</div>
+          <textarea class="tf-input tf-textarea" name="description" required placeholder="Describe your task..."></textarea>
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Priority</div>
+          <select class="tf-input tf-select" name="priority">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+        <div class="tf-actions">
+          <button type="submit" class="tf-btn">Add Todo <span class="tf-arrow">→</span></button>
+          <a href="/todos/todo-page" class="tf-btn-back">← Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

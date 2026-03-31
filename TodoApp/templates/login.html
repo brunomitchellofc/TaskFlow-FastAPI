@@ -1,0 +1,36 @@
+{% include 'layout.html' %}
+ 
+<div class="tf-container">
+  <div class="tf-card-outer">
+    <div class="tf-accent-line"></div>
+    <div class="tf-card-body">
+      <div class="tf-corner-tag">v1.0.0 · secure</div>
+      <div class="tf-dots">
+        <div class="tf-dot" style="background:#ff6b35;"></div>
+        <div class="tf-dot" style="background:#ffd23f;"></div>
+        <div class="tf-dot" style="background:#06d6a0;"></div>
+      </div>
+      <div class="tf-tag">TaskFlow · Auth</div>
+      <div class="tf-title">SIGN<br><span>IN.</span></div>
+      <form id="loginForm" action="/auth/token" method="POST">
+        <div class="tf-field-group">
+          <div class="tf-field-label">Username</div>
+          <input type="text" class="tf-input" name="username" autocomplete="username" required placeholder="Enter your username" />
+        </div>
+        <div class="tf-field-group">
+          <div class="tf-field-label">Password</div>
+          <input type="password" class="tf-input" name="password" autocomplete="current-password" required placeholder="Enter your password" />
+        </div>
+        <button type="submit" class="tf-btn">Login to TaskFlow <span class="tf-arrow">→</span></button>
+      </form>
+      <div class="tf-divider">
+        <div class="tf-divider-line"></div>
+        <div class="tf-divider-text">no account?</div>
+        <div class="tf-divider-line"></div>
+      </div>
+      <div class="tf-footer-link">
+        <a href="/auth/register-page">Create one here →</a>
+      </div>
+    </div>
+  </div>
+</div>
