@@ -38,6 +38,57 @@ function showToast(message, type = 'success') {
   }, 3500);
 }
 
+// ─── CUSTOM MODAL (substitui o confirm() nativo feio) ─────────
+function showDeleteModal(onConfirm) {
+  // remove modal anterior se existir
+  const existing = document.getElementById('tf-delete-modal-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'tf-delete-modal-overlay';
+  overlay.className = 'tf-modal-overlay';
+  overlay.innerHTML = `
+    <div class="tf-modal">
+      <div class="tf-modal-icon">🗑️</div>
+      <div class="tf-modal-title">DELETE TODO</div>
+      <div class="tf-modal-text">This action cannot be undone. Are you sure you want to permanently delete this task?</div>
+      <div class="tf-modal-actions">
+        <button class="tf-modal-cancel" id="tf-modal-cancel">Cancel</button>
+        <button class="tf-modal-confirm" id="tf-modal-confirm">Yes, Delete</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // trigger animation
+  requestAnimationFrame(() => {
+    overlay.classList.add('active');
+  });
+
+  function closeModal() {
+    overlay.classList.remove('active');
+    setTimeout(() => overlay.remove(), 250);
+  }
+
+  document.getElementById('tf-modal-cancel').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+  document.getElementById('tf-modal-confirm').addEventListener('click', () => {
+    closeModal();
+    onConfirm();
+  });
+
+  // fechar com ESC
+  document.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+      document.removeEventListener('keydown', escHandler);
+    }
+  });
+}
+
 // ─── ADD TODO ─────────────────────────────────────────────────
 const todoForm = document.getElementById("todoForm");
 if (todoForm) {
@@ -131,36 +182,36 @@ if (editTodoForm) {
     }
   });
 
-  document.getElementById("deleteButton").addEventListener("click", async function () {
-    const confirmed = confirm("Are you sure you want to delete this todo?");
-    if (!confirmed) return;
+  // FIX: substitui confirm() nativo pelo modal custom
+  document.getElementById("deleteButton").addEventListener("click", function () {
+    showDeleteModal(async () => {
+      var url = window.location.pathname;
+      const todoId = url.substring(url.lastIndexOf("/") + 1);
 
-    var url = window.location.pathname;
-    const todoId = url.substring(url.lastIndexOf("/") + 1);
+      try {
+        const token = getCookie("access_token");
+        if (!token) throw new Error("Authentication token not found");
 
-    try {
-      const token = getCookie("access_token");
-      if (!token) throw new Error("Authentication token not found");
+        const response = await fetch(`/todos/todo/${todoId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      const response = await fetch(`/todos/todo/${todoId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        showToast("✓ Todo deleted successfully!");
-        setTimeout(() => {
-          window.location.href = "/todos/todo-page";
-        }, 1500);
-      } else {
-        const errorData = await response.json();
-        showToast(`Error: ${errorData.detail}`, 'error');
+        if (response.ok) {
+          showToast("✓ Todo deleted successfully!");
+          setTimeout(() => {
+            window.location.href = "/todos/todo-page";
+          }, 1500);
+        } else {
+          const errorData = await response.json();
+          showToast(`Error: ${errorData.detail}`, 'error');
+        }
+      } catch (error) {
+        showToast("An error occurred. Please try again.", 'error');
       }
-    } catch (error) {
-      showToast("An error occurred. Please try again.", 'error');
-    }
+    });
   });
 }
 

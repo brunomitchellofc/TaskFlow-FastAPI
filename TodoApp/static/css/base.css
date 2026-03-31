@@ -2,8 +2,13 @@
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ─── FIX: cursor piscando em áreas vazias ───────────────── */
+body { cursor: default; }
+input, textarea, select { cursor: text; user-select: text; }
+button, a, [onclick] { cursor: pointer; }
+
 body {
-  background-color: #f5f0ff;
+  background-color: #0e0828;
   background-attachment: fixed;
   color: #1a1814;
   font-family: 'DM Sans', sans-serif;
@@ -19,22 +24,23 @@ body::after {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse at 0% 0%, rgba(120,75,160,0.18) 0%, transparent 50%),
-    radial-gradient(ellipse at 100% 0%, rgba(255,107,53,0.1) 0%, transparent 45%),
-    radial-gradient(ellipse at 100% 100%, rgba(6,214,160,0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 0% 100%, rgba(255,210,63,0.08) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 50%, rgba(17,138,178,0.06) 0%, transparent 60%);
+    radial-gradient(ellipse at 0% 0%, rgba(120,75,160,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(255,107,53,0.15) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 100%, rgba(6,214,160,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(255,210,63,0.1) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(17,138,178,0.08) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 
 body > * { position: relative; z-index: 1; }
 
+/* ─── ANIMATED TOP STRIP ──────────────────────────────────── */
 body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 4px;
+  height: 3px;
   background: linear-gradient(90deg, #ff6b35, #ffd23f, #06d6a0, #118ab2, #784ba0, #ff6b35);
   background-size: 200%;
   animation: topbar 5s linear infinite;
@@ -44,18 +50,19 @@ body::before {
 @keyframes topbar { 0%{ background-position:0% } 100%{ background-position:200% } }
 @keyframes fadeUp { from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:translateY(0) } }
 @keyframes slideIn { from{ opacity:0; transform:translateX(-8px) } to{ opacity:1; transform:translateX(0) } }
+@keyframes modalIn { from{ opacity:0; transform:scale(0.94) translateY(12px) } to{ opacity:1; transform:scale(1) translateY(0) } }
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
+/* FIX: z-index alto para navbar nunca ficar atrás de nada */
 .main-color {
-  background: rgba(26, 16, 64, 0.82) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  box-shadow: none !important;
+  background: rgba(14, 8, 40, 0.92) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow: 0 1px 0 rgba(120,75,160,0.25) !important;
   position: fixed !important;
-  top: 4px !important;
+  top: 3px !important;
   left: 0; right: 0;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(120,75,160,0.2) !important;
+  z-index: 9000 !important;
   transition: transform 0.4s ease, opacity 0.4s ease !important;
 }
 
@@ -83,7 +90,7 @@ body::before {
 .nav-link {
   font-size: 0.75rem !important;
   font-weight: 600 !important;
-  color: rgba(255,255,255,0.45) !important;
+  color: rgba(255,255,255,0.5) !important;
   padding: 0.4rem 0.75rem !important;
   border-radius: 6px !important;
   transition: all 0.15s !important;
@@ -442,22 +449,24 @@ body::before {
 .user-name { font-size:0.82rem; font-weight:700; color:#1a1814; display:block; }
 .user-role { font-family:'DM Mono',monospace; font-size:0.52rem; color:#9e9bb5; text-transform:uppercase; letter-spacing:0.06em; }
 
-/* ─── TASKFLOW FORM PAGES — login, register, add-todo, edit-todo ─── */
+/* ─── FORM PAGES — login, register, add-todo, edit-todo ───── */
+/* FIX: centra verticalmente sem precisar de scroll */
 .tf-container {
   min-height: calc(100vh - 65px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .tf-card-outer {
   width: 100%;
   max-width: 420px;
   position: relative;
+  animation: fadeUp 0.35s ease both;
 }
 
-.tf-card-wide { max-width: 540px; }
+.tf-card-wide { max-width: 560px; }
 
 .tf-accent-line {
   height: 3px;
@@ -465,7 +474,7 @@ body::before {
   border-radius: 2px 2px 0 0;
 }
 
-/* ─── THE FIX: tf-card-body usa exatamente o mesmo gradiente do greeting-card ─── */
+/* FIX: card usa mesmo gradiente do greeting-card */
 .tf-card-body {
   background: linear-gradient(135deg, #1a1040 0%, #2d1b69 60%, #1a3040 100%);
   border: 1px solid rgba(120,75,160,0.25);
@@ -474,15 +483,14 @@ body::before {
   padding: 36px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(120,75,160,0.2);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
 }
 
-/* glows subtis — mesmo estilo que greeting-card */
 .tf-card-body::before {
   content: '';
   position: absolute;
   top: -50px; right: -50px;
-  width: 180px; height: 180px;
+  width: 200px; height: 200px;
   background: radial-gradient(circle, rgba(255,107,53,0.15), transparent 70%);
   pointer-events: none;
   z-index: 0;
@@ -491,14 +499,13 @@ body::before {
 .tf-card-body::after {
   content: '';
   position: absolute;
-  bottom: -40px; left: 60px;
-  width: 140px; height: 140px;
+  bottom: -40px; left: 40px;
+  width: 160px; height: 160px;
   background: radial-gradient(circle, rgba(6,214,160,0.1), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* todo o conteúdo fica acima dos glows */
 .tf-card-body > * { position: relative; z-index: 1; }
 
 .tf-corner-tag {
@@ -567,6 +574,7 @@ body::before {
 .tf-input:focus {
   border-color: rgba(255,107,53,0.5);
   background: rgba(255,107,53,0.08);
+  box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
 }
 
 .tf-textarea { resize: vertical; min-height: 90px; }
@@ -642,3 +650,121 @@ body::before {
 }
 
 .tf-footer-link a:hover { color: #ffd23f; }
+
+/* ─── CUSTOM DELETE MODAL ─────────────────────────────────── */
+.tf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.tf-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.tf-modal {
+  background: linear-gradient(135deg, #1a1040 0%, #2d1b69 60%, #1a3040 100%);
+  border: 1px solid rgba(239,35,60,0.3);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 380px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  transform: scale(0.94) translateY(12px);
+  transition: transform 0.25s ease;
+}
+
+.tf-modal-overlay.active .tf-modal {
+  transform: scale(1) translateY(0);
+}
+
+.tf-modal::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(239,35,60,0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.tf-modal-icon {
+  width: 48px; height: 48px;
+  background: rgba(239,35,60,0.15);
+  border: 1px solid rgba(239,35,60,0.3);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.tf-modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.tf-modal-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.tf-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.tf-modal-cancel {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tf-modal-cancel:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.tf-modal-confirm {
+  flex: 1;
+  background: linear-gradient(135deg, #ef233c, #c81d32);
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(239,35,60,0.35);
+}
+
+.tf-modal-confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(239,35,60,0.5);
+}

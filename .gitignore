@@ -12,3 +12,4 @@ pyvenv.cfg
 .DS_Store
 Thumbs.db
 .python-version
+.gitignore
