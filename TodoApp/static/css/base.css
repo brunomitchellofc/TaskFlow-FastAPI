@@ -8,7 +8,7 @@ input, textarea, select { cursor: text; user-select: text; }
 button, a, [onclick] { cursor: pointer; }
 
 body {
-  background-color: #0e0828;
+  background-color: #f4f7f9; 
   background-attachment: fixed;
   color: #1a1814;
   font-family: 'DM Sans', sans-serif;
@@ -24,11 +24,8 @@ body::after {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background:
-    radial-gradient(ellipse at 0% 0%, rgba(120,75,160,0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 100% 0%, rgba(255,107,53,0.15) 0%, transparent 45%),
-    radial-gradient(ellipse at 100% 100%, rgba(6,214,160,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 0% 100%, rgba(255,210,63,0.1) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 50%, rgba(17,138,178,0.08) 0%, transparent 60%);
+    radial-gradient(ellipse at 0% 0%, rgba(120,75,160,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(255,107,53,0.08) 0%, transparent 45%);
   pointer-events: none;
   z-index: 0;
 }
@@ -53,17 +50,18 @@ body::before {
 @keyframes modalIn { from{ opacity:0; transform:scale(0.94) translateY(12px) } to{ opacity:1; transform:scale(1) translateY(0) } }
 
 /* ─── NAVBAR ─────────────────────────────────────────────── */
-/* FIX: z-index alto para navbar nunca ficar atrás de nada */
+
 .main-color {
-  background: rgba(14, 8, 40, 0.92) !important;
+  background: linear-gradient(135deg, #1a1040 0%, #2d1b69 60%, #1a3040 100%) !important;
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
-  box-shadow: 0 1px 0 rgba(120,75,160,0.25) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
   position: fixed !important;
-  top: 3px !important;
+  top: 3px !important; 
   left: 0; right: 0;
   z-index: 9000 !important;
-  transition: transform 0.4s ease, opacity 0.4s ease !important;
+  transition: all 0.4s ease !important;
 }
 
 .navbar { padding: 0 2rem; height: 61px; position: relative; }
@@ -236,7 +234,7 @@ body::before {
 .section-title {
   font-size: 1rem;
   font-weight: 800;
-  color: #1a1814;
+  color: #2d1b69;
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
